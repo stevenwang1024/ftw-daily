@@ -27,7 +27,7 @@ const TopbarMobileMenu = props => {
 
   if (!isAuthenticated) {
     const signup = (
-      <NamedLink name="SignupPage" className={css.signupLink}>
+      <NamedLink name="CustomerSignupPage" className={css.signupLink}>
         <FormattedMessage id="TopbarMobileMenu.signupLink" />
       </NamedLink>
     );

@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   AboutPage,
-  AuthenticationPage,
+  CustomerAuthenticationPage,
+  SupplierAuthenticationPage,
   CheckoutPage,
   ContactDetailsPage,
   EditListingPage,
@@ -168,12 +169,17 @@ const routeConfiguration = () => {
     {
       path: '/login',
       name: 'LoginPage',
-      component: props => <AuthenticationPage {...props} tab="login" />,
+      component: props => <CustomerAuthenticationPage {...props} tab="login" />,
     },
     {
       path: '/signup',
-      name: 'SignupPage',
-      component: props => <AuthenticationPage {...props} tab="signup" />,
+      name: 'CustomerSignupPage',
+      component: props => <CustomerAuthenticationPage {...props} tab="signup" />,
+    },
+    {
+      path: '/supplier-signup',
+      name: 'SupplierSignupPage',
+      component: props => <SupplierAuthenticationPage {...props} />,
     },
     {
       path: '/recover-password',

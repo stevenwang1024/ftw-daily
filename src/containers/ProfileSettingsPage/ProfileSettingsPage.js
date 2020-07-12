@@ -44,16 +44,24 @@ export class ProfileSettingsPageComponent extends Component {
       intl,
     } = this.props;
 
+    // TODO: add more attributes to this as we add more fields in ProfileSettingForm
     const handleSubmit = values => {
-      const { firstName, lastName, bio: rawBio } = values;
+      const { firstName, lastName, phoneNumber, servicesOffered, bio: rawBio } = values;
 
       // Ensure that the optional bio is a string
       const bio = rawBio || '';
-
+      
+      // make sure the profile consists of new attributes
       const profile = {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         bio,
+        publicData: {
+          servicesOffered: servicesOffered
+        },
+        protectedData: {
+          phoneNumber: phoneNumber 
+        }
       };
       const uploadedImage = this.props.image;
 
@@ -67,7 +75,10 @@ export class ProfileSettingsPageComponent extends Component {
     };
 
     const user = ensureCurrentUser(currentUser);
+    // TODO: make sure attributes are loaded here from current user
     const { firstName, lastName, bio } = user.attributes.profile;
+    const phoneNumber = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.phoneNumber); 
+    const servicesOffered = (user.attributes.profile.publicData && user.attributes.profile.publicData.servicesOffered); 
     const profileImageId = user.profileImage ? user.profileImage.id : null;
     const profileImage = image || { imageId: profileImageId };
 
@@ -75,7 +86,8 @@ export class ProfileSettingsPageComponent extends Component {
       <ProfileSettingsForm
         className={css.form}
         currentUser={currentUser}
-        initialValues={{ firstName, lastName, bio, profileImage: user.profileImage }}
+        // TODO: make sure attribute appears here
+        initialValues={{ firstName, lastName, phoneNumber, servicesOffered, bio, profileImage: user.profileImage }}
         profileImage={profileImage}
         onImageUpload={e => onImageUploadHandler(e, onImageUpload)}
         uploadInProgress={uploadInProgress}

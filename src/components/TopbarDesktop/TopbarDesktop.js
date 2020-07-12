@@ -17,6 +17,7 @@ import {
 import { TopbarSearchForm } from '../../forms';
 
 import css from './TopbarDesktop.css';
+import { ensureCurrentUser } from '../../util/data';
 
 const TopbarDesktop = props => {
   const {
@@ -37,6 +38,11 @@ const TopbarDesktop = props => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const user = ensureCurrentUser(currentUser);
+  const currentUserLoaded = !!user.id;
+  const user_type = (user.attributes.profile.publicData && user.attributes.profile.publicData.userType);
+  const isSupplier = user_type === "supplier";
 
   const authenticatedOnClientSide = mounted && isAuthenticated;
   const isAuthenticatedOrJustHydrated = isAuthenticated || !mounted;
@@ -115,11 +121,19 @@ const TopbarDesktop = props => {
       </MenuContent>
     </Menu>
   ) : null;
-
-  const signupLink = isAuthenticatedOrJustHydrated ? null : (
-    <NamedLink name="SignupPage" className={css.signupLink}>
+  
+  const signupLink_supplier = isAuthenticatedOrJustHydrated ? null : (
+    <NamedLink name="SupplierSignupPage" className={css.signupLink}>
       <span className={css.signup}>
-        <FormattedMessage id="TopbarDesktop.signup" />
+        <FormattedMessage id="TopbarDesktop.supplier_signup" />
+      </span>
+    </NamedLink>
+  );
+
+  const signupLink_customer = isAuthenticatedOrJustHydrated ? null : (
+    <NamedLink name="CustomerSignupPage" className={css.signupLink}>
+      <span className={css.signup}>
+        <FormattedMessage id="TopbarDesktop.customer_signup" />
       </span>
     </NamedLink>
   );
@@ -131,6 +145,12 @@ const TopbarDesktop = props => {
       </span>
     </NamedLink>
   );
+  
+  const newLinstingLink = (currentUserLoaded && isSupplier) ? <NamedLink className={css.createListingLink} name="NewListingPage">
+    <span className={css.createListing}>
+      <FormattedMessage id="TopbarDesktop.createListing" />
+    </span>
+  </NamedLink> : null;
 
   return (
     <nav className={classes}>
@@ -142,14 +162,16 @@ const TopbarDesktop = props => {
         />
       </NamedLink>
       {search}
-      <NamedLink className={css.createListingLink} name="NewListingPage">
+      {signupLink_supplier}
+      {/* { <NamedLink className={css.createListingLink} name="NewListingPage">
         <span className={css.createListing}>
           <FormattedMessage id="TopbarDesktop.createListing" />
         </span>
-      </NamedLink>
+      </NamedLink> }  */}
+      {newLinstingLink}
       {inboxLink}
       {profileMenu}
-      {signupLink}
+      {signupLink_customer}
       {loginLink}
     </nav>
   );

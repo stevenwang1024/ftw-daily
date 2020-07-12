@@ -28,16 +28,16 @@ import {
   Modal,
   TermsOfService,
 } from '../../components';
-import { LoginForm, SignupForm } from '../../forms';
-import { TopbarContainer } from '../../containers';
-import { login, authenticationInProgress, signup } from '../../ducks/Auth.duck';
+import { SignupForm } from '../../forms';
+import { TopbarContainer } from '..';
+import { authenticationInProgress, signup } from '../../ducks/Auth.duck';
 import { isScrollingDisabled } from '../../ducks/UI.duck';
 import { sendVerificationEmail } from '../../ducks/user.duck';
 import { manageDisableScrolling } from '../../ducks/UI.duck';
 
-import css from './AuthenticationPage.css';
+import css from './SupplierAuthenticationPage.css';
 
-export class AuthenticationPageComponent extends Component {
+export class SupplierAuthenticationPageComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { tosModalOpen: false };
@@ -49,10 +49,8 @@ export class AuthenticationPageComponent extends Component {
       intl,
       isAuthenticated,
       location,
-      loginError,
       scrollingDisabled,
       signupError,
-      submitLogin,
       submitSignup,
       tab,
       sendVerificationEmailInProgress,
@@ -60,7 +58,6 @@ export class AuthenticationPageComponent extends Component {
       onResendVerificationEmail,
       onManageDisableScrolling,
     } = this.props;
-    const isLogin = tab === 'login';
     const from = location.state && location.state.from ? location.state.from : null;
 
     const user = ensureCurrentUser(currentUser);
@@ -70,7 +67,7 @@ export class AuthenticationPageComponent extends Component {
     // tab if the user isn't being redirected somewhere else
     // (i.e. `from` is present). We must also check the `emailVerified`
     // flag only when the current user is fully loaded.
-    const showEmailVerification = !isLogin && currentUserLoaded && !user.attributes.emailVerified;
+    const showEmailVerification = currentUserLoaded && !user.attributes.emailVerified;
 
     // Already authenticated, redirect away from auth page
     if (isAuthenticated && from) {
@@ -79,27 +76,20 @@ export class AuthenticationPageComponent extends Component {
       return <NamedRedirect name="LandingPage" />;
     }
 
-    const loginErrorMessage = (
-      <div className={css.error}>
-        <FormattedMessage id="AuthenticationPage.loginFailed" />
-      </div>
-    );
 
     const signupErrorMessage = (
       <div className={css.error}>
         {isSignupEmailTakenError(signupError) ? (
-          <FormattedMessage id="AuthenticationPage.signupFailedEmailAlreadyTaken" />
+          <FormattedMessage id="SupplierAuthenticationPage.signupFailedEmailAlreadyTaken" />
         ) : (
-          <FormattedMessage id="AuthenticationPage.signupFailed" />
+          <FormattedMessage id="SupplierAuthenticationPage.signupFailed" />
         )}
       </div>
     );
 
     // eslint-disable-next-line no-confusing-arrow
     const errorMessage = (error, message) => (error ? message : null);
-    const loginOrSignupError = isLogin
-      ? errorMessage(loginError, loginErrorMessage)
-      : errorMessage(signupError, signupErrorMessage);
+    const SignupError = errorMessage(signupError, signupErrorMessage);
 
     const fromState = { state: from ? { from } : null };
 
@@ -110,21 +100,8 @@ export class AuthenticationPageComponent extends Component {
             <FormattedMessage id="AuthenticationPage.signupLinkText" />
           </h1>
         ),
-        selected: !isLogin,
         linkProps: {
-          name: 'SignupPage',
-          to: fromState,
-        },
-      },
-      {
-        text: (
-          <h1 className={css.tab}>
-            <FormattedMessage id="AuthenticationPage.loginLinkText" />
-          </h1>
-        ),
-        selected: isLogin,
-        linkProps: {
-          name: 'LoginPage',
+          name: 'SupplierSignupPage',
           to: fromState,
         },
       },
@@ -132,24 +109,21 @@ export class AuthenticationPageComponent extends Component {
 
     const handleSubmitSignup = values => {
       const { fname, lname, ...rest } = values;
-      const params = { firstName: fname.trim(), lastName: lname.trim(), ...rest };
+      const user_type = "supplier";
+      const params = { firstName: fname.trim(), lastName: lname.trim(), userType: user_type, ...rest };
       submitSignup(params);
     };
 
     const formContent = (
       <div className={css.content}>
         <LinkTabNavHorizontal className={css.tabs} tabs={tabs} />
-        {loginOrSignupError}
-        {isLogin ? (
-          <LoginForm className={css.form} onSubmit={submitLogin} inProgress={authInProgress} />
-        ) : (
-          <SignupForm
+        {SignupError}
+        <SignupForm
             className={css.form}
             onSubmit={handleSubmitSignup}
             inProgress={authInProgress}
             onOpenTermsOfService={() => this.setState({ tosModalOpen: true })}
-          />
-        )}
+        />
       </div>
     );
 
@@ -158,20 +132,20 @@ export class AuthenticationPageComponent extends Component {
 
     const resendEmailLink = (
       <InlineTextButton rootClassName={css.modalHelperLink} onClick={onResendVerificationEmail}>
-        <FormattedMessage id="AuthenticationPage.resendEmailLinkText" />
+        <FormattedMessage id="SupplierAuthenticationPage.resendEmailLinkText" />
       </InlineTextButton>
     );
     const fixEmailLink = (
       <NamedLink className={css.modalHelperLink} name="ContactDetailsPage">
-        <FormattedMessage id="AuthenticationPage.fixEmailLinkText" />
+        <FormattedMessage id="SupplierAuthenticationPage.fixEmailLinkText" />
       </NamedLink>
     );
 
     const resendErrorTranslationId = isTooManyEmailVerificationRequestsError(
       sendVerificationEmailError
     )
-      ? 'AuthenticationPage.resendFailedTooManyRequests'
-      : 'AuthenticationPage.resendFailed';
+      ? 'SupplierAuthenticationPage.resendFailedTooManyRequests'
+      : 'SupplierAuthenticationPage.resendFailed';
     const resendErrorMessage = sendVerificationEmailError ? (
       <p className={css.error}>
         <FormattedMessage id={resendErrorTranslationId} />
@@ -182,38 +156,36 @@ export class AuthenticationPageComponent extends Component {
       <div className={css.content}>
         <NamedLink className={css.verifyClose} name="ProfileSettingsPage">
           <span className={css.closeText}>
-            <FormattedMessage id="AuthenticationPage.verifyEmailClose" />
+            <FormattedMessage id="SupplierAuthenticationPage.verifyEmailClose" />
           </span>
           <IconClose rootClassName={css.closeIcon} />
         </NamedLink>
         <IconEmailSent className={css.modalIcon} />
         <h1 className={css.modalTitle}>
-          <FormattedMessage id="AuthenticationPage.verifyEmailTitle" values={{ name }} />
+          <FormattedMessage id="SupplierAuthenticationPage.verifyEmailTitle" values={{ name }} />
         </h1>
         <p className={css.modalMessage}>
-          <FormattedMessage id="AuthenticationPage.verifyEmailText" values={{ email }} />
+          <FormattedMessage id="SupplierAuthenticationPage.verifyEmailText" values={{ email }} />
         </p>
         {resendErrorMessage}
 
         <div className={css.bottomWrapper}>
           <p className={css.modalHelperText}>
             {sendVerificationEmailInProgress ? (
-              <FormattedMessage id="AuthenticationPage.sendingEmail" />
+              <FormattedMessage id="SupplierAuthenticationPage.sendingEmail" />
             ) : (
-              <FormattedMessage id="AuthenticationPage.resendEmail" values={{ resendEmailLink }} />
+              <FormattedMessage id="SupplierAuthenticationPage.resendEmail" values={{ resendEmailLink }} />
             )}
           </p>
           <p className={css.modalHelperText}>
-            <FormattedMessage id="AuthenticationPage.fixEmail" values={{ fixEmailLink }} />
+            <FormattedMessage id="SupplierAuthenticationPage.fixEmail" values={{ fixEmailLink }} />
           </p>
         </div>
       </div>
     );
 
     const siteTitle = config.siteTitle;
-    const schemaTitle = isLogin
-      ? intl.formatMessage({ id: 'AuthenticationPage.schemaTitleLogin' }, { siteTitle })
-      : intl.formatMessage({ id: 'AuthenticationPage.schemaTitleSignup' }, { siteTitle });
+    const schemaTitle = intl.formatMessage({ id: 'SupplierAuthenticationPage.schemaTitleSignup' }, { siteTitle });
 
     const topbarClasses = classNames({
       [css.hideOnMobile]: showEmailVerification,
@@ -238,7 +210,7 @@ export class AuthenticationPageComponent extends Component {
               {showEmailVerification ? emailVerificationContent : formContent}
             </div>
             <Modal
-              id="AuthenticationPage.tos"
+              id="SupplierAuthenticationPage.tos"
               isOpen={this.state.tosModalOpen}
               onClose={() => this.setState({ tosModalOpen: false })}
               usePortal
@@ -246,7 +218,7 @@ export class AuthenticationPageComponent extends Component {
             >
               <div className={css.termsWrapper}>
                 <h2 className={css.termsHeading}>
-                  <FormattedMessage id="AuthenticationPage.termsHeading" />
+                  <FormattedMessage id="SupplierAuthenticationPage.termsHeading" />
                 </h2>
                 <TermsOfService />
               </div>
@@ -261,9 +233,8 @@ export class AuthenticationPageComponent extends Component {
   }
 }
 
-AuthenticationPageComponent.defaultProps = {
+SupplierAuthenticationPageComponent.defaultProps = {
   currentUser: null,
-  loginError: null,
   signupError: null,
   tab: 'signup',
   sendVerificationEmailError: null,
@@ -271,16 +242,14 @@ AuthenticationPageComponent.defaultProps = {
 
 const { bool, func, object, oneOf, shape } = PropTypes;
 
-AuthenticationPageComponent.propTypes = {
+SupplierAuthenticationPageComponent.propTypes = {
   authInProgress: bool.isRequired,
   currentUser: propTypes.currentUser,
   isAuthenticated: bool.isRequired,
-  loginError: propTypes.error,
   scrollingDisabled: bool.isRequired,
   signupError: propTypes.error,
-  submitLogin: func.isRequired,
   submitSignup: func.isRequired,
-  tab: oneOf(['login', 'signup']),
+  tab: oneOf(['signup']),
 
   sendVerificationEmailInProgress: bool.isRequired,
   sendVerificationEmailError: propTypes.error,
@@ -295,13 +264,12 @@ AuthenticationPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => {
-  const { isAuthenticated, loginError, signupError } = state.Auth;
+  const { isAuthenticated, signupError } = state.Auth;
   const { currentUser, sendVerificationEmailInProgress, sendVerificationEmailError } = state.user;
   return {
     authInProgress: authenticationInProgress(state),
     currentUser,
     isAuthenticated,
-    loginError,
     scrollingDisabled: isScrollingDisabled(state),
     signupError,
     sendVerificationEmailInProgress,
@@ -310,7 +278,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  submitLogin: ({ email, password }) => dispatch(login(email, password)),
   submitSignup: params => dispatch(signup(params)),
   onResendVerificationEmail: () => dispatch(sendVerificationEmail()),
   onManageDisableScrolling: (componentId, disableScrolling) =>
@@ -323,13 +290,13 @@ const mapDispatchToProps = dispatch => ({
 // lifecycle hook.
 //
 // See: https://github.com/ReactTraining/react-router/issues/4671
-const AuthenticationPage = compose(
+const SupplierAuthenticationPage = compose(
   withRouter,
   connect(
     mapStateToProps,
     mapDispatchToProps
   ),
   injectIntl
-)(AuthenticationPageComponent);
+)(SupplierAuthenticationPageComponent);
 
-export default AuthenticationPage;
+export default SupplierAuthenticationPage;

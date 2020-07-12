@@ -50,6 +50,7 @@ const EditListingFeaturesFormComponent = props => (
       ) : null;
 
       const options = findOptionsForSelectFilter('amenities', filterConfig);
+      console.log(options);
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessage}
