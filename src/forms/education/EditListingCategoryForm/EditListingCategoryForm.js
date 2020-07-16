@@ -6,22 +6,12 @@ import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators } from '../../util/validators';
-import { Form, Button, FieldTextInput, FieldRadioButton, FieldCheckbox } from '../../components';
+import { Form, Button, FieldTextInput } from '../../components';
 import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 
 import css from './EditListingDescriptionForm.css';
 
 const TITLE_MAX_LENGTH = 60;
-
-function RadioButtonEducation (props) {
-  return <FieldRadioButton 
-    id= {props.id}  
-    label={props.label}  // should move to a const variable
-    name="education_category"
-    value={props.value} // "tutoring"
-    showAsRequired={props.showAsRequired}
-  />
-}
 
 const EditListingDescriptionFormComponent = props => (
   <FinalForm
@@ -36,7 +26,6 @@ const EditListingDescriptionFormComponent = props => (
         intl,
         invalid,
         pristine,
-        isPublished,
         saveActionMsg,
         updated,
         updateInProgress,
@@ -91,23 +80,7 @@ const EditListingDescriptionFormComponent = props => (
       const classes = classNames(css.root, className);
       const submitReady = (updated && pristine) || ready;
       const submitInProgress = updateInProgress;
-      const submitDisabled = pristine || invalid || disabled || submitInProgress;
-
-      // Radio button
-      const radioRequired = true;
-      const showAsRequired = pristine && radioRequired;
-      const educationData = [
-        { id: "admission", label:"College Application Consulting", value: "college_admission", showAsRequired:{showAsRequired}},
-        { id: "tutoring", label:"Tutoring", value: "tutoring", showAsRequired: {showAsRequired}},
-        { id: "language", label:"Language Class", value: "language_class", showAsRequired:{showAsRequired}},
-        { id: "holiday_camp", label: "Summer/Winter Camp", value: "holiday_camp", showAsRequired: {showAsRequired}},
-        { id: "customization", label: "Customization", value: "customization", showAsRequired: {showAsRequired}},
-        { id: "coaching", label: "Coaching", value: "coaching", showAsRequired: {showAsRequired}},
-      ]
-
-      const eduCategories = educationData.map(item => (
-        <RadioButtonEducation id={item.id} label={item.label} value={item.value} showAsRequired={showAsRequired} disabled={isPublished} />
-      ));
+      const submitDisabled = invalid || disabled || submitInProgress;
 
       return (
         <Form className={classes} onSubmit={handleSubmit}>
@@ -142,7 +115,7 @@ const EditListingDescriptionFormComponent = props => (
             categories={categories}
             intl={intl}
           />
-          {eduCategories}
+
           <Button
             className={css.submitButton}
             type="submit"

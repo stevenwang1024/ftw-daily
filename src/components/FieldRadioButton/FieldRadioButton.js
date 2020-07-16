@@ -42,6 +42,7 @@ const FieldRadioButtonComponent = props => {
     className: css.input,
     component: 'input',
     type: 'radio',
+    // disable:
     ...rest,
   };
 
