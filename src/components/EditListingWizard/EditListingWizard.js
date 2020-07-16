@@ -21,6 +21,7 @@ import { StripeConnectAccountForm } from '../../forms';
 import EditListingWizardTab, {
   AVAILABILITY,
   DESCRIPTION,
+  COMMON_ATTR,
   FEATURES,
   POLICY,
   LOCATION,
@@ -38,6 +39,7 @@ const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 // and listing publishing happens after last panel.
 export const TABS = [
   DESCRIPTION,
+  COMMON_ATTR,
   FEATURES,
   POLICY,
   LOCATION,
@@ -56,6 +58,8 @@ const tabLabel = (intl, tab) => {
   let key = null;
   if (tab === DESCRIPTION) {
     key = 'EditListingWizard.tabLabelDescription';
+  } else if (tab === COMMON_ATTR) {
+    key = 'EditListingWizard.tabLabelCommonAttributes';
   } else if (tab === FEATURES) {
     key = 'EditListingWizard.tabLabelFeatures';
   } else if (tab === POLICY) {
@@ -95,6 +99,9 @@ const tabCompleted = (tab, listing) => {
   switch (tab) {
     case DESCRIPTION:
       return !!(description && title);
+    case COMMON_ATTR:
+      // TODO: update this value when we finish define attributes
+      return true;
     case FEATURES:
       return !!(publicData && publicData.amenities);
     case POLICY:

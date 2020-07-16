@@ -12,6 +12,7 @@ import { createResourceLocatorString } from '../../util/routes';
 import {
   EditListingAvailabilityPanel,
   EditListingDescriptionPanel,
+  EditListingCommonAttributesPanel,
   EditListingFeaturesPanel,
   EditListingLocationPanel,
   EditListingPhotosPanel,
@@ -28,10 +29,12 @@ export const POLICY = 'policy';
 export const LOCATION = 'location';
 export const PRICING = 'pricing';
 export const PHOTOS = 'photos';
+export const COMMON_ATTR = 'common_attributes';
 
 // EditListingWizardTab component supports these tabs
 export const SUPPORTED_TABS = [
   DESCRIPTION,
+  COMMON_ATTR,
   FEATURES,
   POLICY,
   LOCATION,
@@ -164,6 +167,20 @@ const EditListingWizardTab = props => {
       return (
         <EditListingDescriptionPanel
           {...panelProps(DESCRIPTION)}
+          submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
+          onSubmit={values => {
+            onCompleteEditListingWizardTab(tab, values);
+          }}
+        />
+      );
+    }
+    case COMMON_ATTR: {
+      const submitButtonTranslationKey = isNewListingFlow
+        ? 'EditListingWizard.saveNewDescription'
+        : 'EditListingWizard.saveEditDescription';
+      return (
+        <EditListingCommonAttributesPanel
+          {...panelProps(COMMON_ATTR)}
           submitButtonText={intl.formatMessage({ id: submitButtonTranslationKey })}
           onSubmit={values => {
             onCompleteEditListingWizardTab(tab, values);

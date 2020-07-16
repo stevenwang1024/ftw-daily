@@ -5,13 +5,13 @@ import { FormattedMessage } from '../../util/reactIntl';
 import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
-import { ListingLink } from '../../components';
+import { ListingLink } from '..';
 import { EditListingDescriptionForm } from '../../forms';
 import config from '../../config';
 
-import css from './EditListingDescriptionPanel.css';
+import css from './EditListingCommonAttributesPanel.css';
 
-const EditListingDescriptionPanel = props => {
+const EditListingCommonAttributesPanel = props => {
   const {
     className,
     rootClassName,
@@ -33,11 +33,11 @@ const EditListingDescriptionPanel = props => {
   const isPublished = currentListing.id && currentListing.attributes.state !== LISTING_STATE_DRAFT;
   const panelTitle = isPublished ? (
     <FormattedMessage
-      id="EditListingDescriptionPanel.title"
+      id="EditListingCommonAttributesPanel.title"
       values={{ listingTitle: <ListingLink listing={listing} /> }}
     />
   ) : (
-    <FormattedMessage id="EditListingDescriptionPanel.createListingTitle" />
+    <FormattedMessage id="EditListingCommonAttributesPanel.createListingTitle" />
   );
 
   const categoryOptions = findOptionsForSelectFilter('category', config.custom.filters);
@@ -74,14 +74,14 @@ const EditListingDescriptionPanel = props => {
   );
 };
 
-EditListingDescriptionPanel.defaultProps = {
+EditListingCommonAttributesPanel.defaultProps = {
   className: null,
   rootClassName: null,
   errors: null,
   listing: null,
 };
 
-EditListingDescriptionPanel.propTypes = {
+EditListingCommonAttributesPanel.propTypes = {
   className: string,
   rootClassName: string,
 
@@ -98,4 +98,4 @@ EditListingDescriptionPanel.propTypes = {
   errors: object.isRequired,
 };
 
-export default EditListingDescriptionPanel;
+export default EditListingCommonAttributesPanel;
