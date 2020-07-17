@@ -6,7 +6,7 @@ import { ensureOwnListing } from '../../util/data';
 import { findOptionsForSelectFilter } from '../../util/search';
 import { LISTING_STATE_DRAFT } from '../../util/types';
 import { ListingLink } from '..';
-import { EditListingDescriptionForm } from '../../forms';
+import { EditListingCommonAttributesForm } from '../../forms';
 import config from '../../config';
 
 import css from './EditListingCommonAttributesPanel.css';
@@ -44,19 +44,19 @@ const EditListingCommonAttributesPanel = props => {
   return (
     <div className={classes}>
       <h1 className={css.title}>{panelTitle}</h1>
-      <EditListingDescriptionForm
+      <EditListingCommonAttributesForm
         className={css.form}
-        // initialValues={{ title, description, category: publicData.category, education_category: publicData.education_category }}
-        initialValues={{ education_category: publicData.education_category }}
+        initialValues={{ title, description, category: publicData.category, education_category: publicData.education_category }}
+        //initialValues={{ education_category: publicData.education_category }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          // const { title, description, category, education_category } = values;
-          const { education_category } = values;
+          const { title, description, category, education_category } = values;
+          //const { education_category } = values;
           const updateValues = {
-            // title: title.trim(),
-            // description,
-            // publicData: { education_category, category },
-            publicData: { education_category },
+            title: title.trim(),
+            description,
+            publicData: { education_category, category },
+            //publicData: { education_category },
           };
 
           onSubmit(updateValues);

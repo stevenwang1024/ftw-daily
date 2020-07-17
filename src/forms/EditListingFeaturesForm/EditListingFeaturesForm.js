@@ -97,6 +97,7 @@ EditListingFeaturesFormComponent.propTypes = {
   filterConfig: propTypes.filterConfig,
 };
 
+
 const EditListingFeaturesForm = EditListingFeaturesFormComponent;
 
 export default EditListingFeaturesForm;
