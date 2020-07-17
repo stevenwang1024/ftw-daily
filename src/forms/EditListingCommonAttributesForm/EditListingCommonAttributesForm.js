@@ -5,13 +5,24 @@ import { Form as FinalForm } from 'react-final-form';
 import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
-import { maxLength, required, composeValidators } from '../../util/validators';
-import { Form, Button, FieldTextInput } from '../../components';
-import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
+import { maxLength, required, composeValidators, requiredBoolean } from '../../util/validators';
+import { Form, Button, FieldTextInput, FieldRadioButton, FieldBoolean } from '../../components';
+// import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 
 import css from './EditListingCommonAttributesForm.css';
 
 const TITLE_MAX_LENGTH = 60;
+
+function RadioButtonEducationApplication (props) {
+  return <FieldRadioButton 
+    id= {props.id}  
+    label={props.label}  // should move to a const variable
+    name="education_application_category"
+    value={props.value} // "tutoring"
+    showAsRequired={props.showAsRequired}
+  />
+}
+
 
 const EditListingCommonAttributesFormComponent = props => (
   <FinalForm
@@ -81,6 +92,27 @@ const EditListingCommonAttributesFormComponent = props => (
       const submitReady = (updated && pristine) || ready;
       const submitInProgress = updateInProgress;
       const submitDisabled = invalid || disabled || submitInProgress;
+      
+       // Radio button for application type, e.g. college, grad school, high school, before highschool 
+       const radioRequired = true;
+       const showAsRequired = pristine && radioRequired;
+       const applicationCategoryData = [
+         { id: "high_school", label:"High School", value: "high_school", showAsRequired:{showAsRequired}},
+         { id: "college", label:"College", value: "college", showAsRequired: {showAsRequired}},
+         { id: "grad_school", label:"Gradudate School", value: "grad_school", showAsRequired:{showAsRequired}},
+         { id: "mba", label: "MBA Program", value: "mba", showAsRequired: {showAsRequired}},
+         { id: "elementary_middle", label: "Elementary/Middle School", value: "elementary_middle", showAsRequired: {showAsRequired}},
+         { id: "other", label: "Other", value: "other", showAsRequired: {showAsRequired}},
+         // Add a text box for "other"
+       ]
+       const eduApplicationCategories = applicationCategoryData.map(item => (
+         <RadioButtonEducationApplication id={item.id} label={item.label} value={item.value} showAsRequired={showAsRequired} />
+       ));
+       // Radio button for application type ENDs
+
+       // Boolean to include provider profile
+       const profileBoolRequired = requiredBoolean('This field is required');
+
 
       return (
         <Form className={classes} onSubmit={handleSubmit}>
@@ -99,6 +131,7 @@ const EditListingCommonAttributesFormComponent = props => (
             autoFocus
           />
 
+          
           <FieldTextInput
             id="description"
             name="description"
@@ -108,14 +141,23 @@ const EditListingCommonAttributesFormComponent = props => (
             placeholder={descriptionPlaceholderMessage}
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
-
-          <CustomCategorySelectFieldMaybe
-            id="category"
-            name="category"
-            categories={categories}
-            intl={intl}
+          
+          <h3 className={css.subTitle}>
+              {/* <FormattedMessage id="PayoutDetailsForm.accountTypeTitle" /> */}
+              Application Type
+          </h3>
+          {eduApplicationCategories}
+          
+         
+          {/* TODO: add label to translation json files */}
+          <FieldBoolean
+            id={'EditListingCommonAttributesForm.includeProviderProfile'}
+            name="include_provider_profile"
+            label="Include your profile to help customers know you"
+            placeholder="Select"
+            validate={profileBoolRequired}
           />
-
+          
           <Button
             className={css.submitButton}
             type="submit"
