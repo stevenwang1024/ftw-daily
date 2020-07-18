@@ -6,9 +6,9 @@ import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators, requiredBoolean } from '../../util/validators';
-import { Form, Button, FieldTextInput, FieldRadioButton, FieldBoolean,FieldSelect } from '../../components';
+import { Form, Button, FieldTextInput, FieldRadioButton, FieldBoolean,FieldSelect,FieldCheckboxGroup } from '../../components';
 // import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
-
+import arrayMutators from 'final-form-arrays';
 import css from './EditListingCommonAttributesForm.css';
 
 const TITLE_MAX_LENGTH = 60;
@@ -27,6 +27,7 @@ function RadioButtonEducationApplication (props) {
 const EditListingCommonAttributesFormComponent = props => (
   <FinalForm
     {...props}
+    mutators={arrayMutators}
     render={formRenderProps => {
       const {
         categories,
@@ -115,6 +116,11 @@ const EditListingCommonAttributesFormComponent = props => (
        //fieldselect to choose language provider teaches
        const languageRequired = required('This field is required');
 
+      // Travel options
+      const travel_options = [{key:"me_to_customer", label:"I travel to customers"}, 
+      {key:"customer_to_me", label:"Customers travel to me"}, 
+      {key:"remote", label:"Remote"}];
+
       return (
         <Form className={classes} onSubmit={handleSubmit}>
           {errorMessageCreateListingDraft}
@@ -178,7 +184,7 @@ const EditListingCommonAttributesFormComponent = props => (
             placeholder="Select"
             validate={profileBoolRequired}
           />
-          
+
           <FieldSelect id="language" name="language" label="Choose a language:" validate={languageRequired}>
             <option value="">Select the language you will teach</option>
             <option value="english">English</option>
@@ -187,6 +193,13 @@ const EditListingCommonAttributesFormComponent = props => (
             <option value="others">Other</option>
             {/* TODO:add a text box for other */}
           </FieldSelect>
+
+          <div className={css.sectionContainer}>
+                <h3 className={css.sectionTitle}>
+                  <FormattedMessage id="ProfileSettingsForm.travelOption" />
+                </h3>
+                <FieldCheckboxGroup className={css.features} id="travel_options" name="travelOptions" options={travel_options} />
+          </div>
 
           <Button
             className={css.submitButton}

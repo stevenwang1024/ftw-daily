@@ -46,7 +46,7 @@ export class ProfileSettingsPageComponent extends Component {
 
     // TODO: add more attributes to this as we add more fields in ProfileSettingForm
     const handleSubmit = values => {
-      const { firstName, lastName, phoneNumber, email, wechat, servicesOffered, travelOptions, bio: rawBio } = values;
+      const { firstName, lastName, phoneNumber, email, wechat, business_name,year_founded, business_address, servicesOffered, bio: rawBio } = values;
       // Ensure that the optional bio is a string
       const bio = rawBio || '';
       
@@ -57,7 +57,9 @@ export class ProfileSettingsPageComponent extends Component {
         bio,
         publicData: {
           servicesOffered: servicesOffered,
-          travelOptions: travelOptions
+          business_name: business_name,
+          year_founded: year_founded,
+          business_address: business_address
         },
         protectedData: {
           phoneNumber: phoneNumber,
@@ -84,7 +86,9 @@ export class ProfileSettingsPageComponent extends Component {
     const email = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.email); 
     const wechat = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.wechat); 
     const servicesOffered = (user.attributes.profile.publicData && user.attributes.profile.publicData.servicesOffered); 
-    const travelOptions = (user.attributes.profile.publicData && user.attributes.profile.publicData.travelOptions); 
+    const business_name = (user.attributes.profile.publicData && user.attributes.profile.publicData.business_name); 
+    const business_address = (user.attributes.profile.publicData && user.attributes.profile.publicData.business_address); 
+    const year_founded = (user.attributes.profile.publicData && user.attributes.profile.publicData.year_founded); 
     const profileImageId = user.profileImage ? user.profileImage.id : null;
     const profileImage = image || { imageId: profileImageId };
 
@@ -93,7 +97,7 @@ export class ProfileSettingsPageComponent extends Component {
         className={css.form}
         currentUser={currentUser}
         // TODO: make sure attribute appears here
-        initialValues={{ firstName, lastName, phoneNumber,email, wechat, servicesOffered, travelOptions, bio, profileImage: user.profileImage }}
+        initialValues={{ firstName, lastName, phoneNumber,email, wechat, business_name, year_founded, business_address, servicesOffered, bio, profileImage: user.profileImage }}
         profileImage={profileImage}
         onImageUpload={e => onImageUploadHandler(e, onImageUpload)}
         uploadInProgress={uploadInProgress}

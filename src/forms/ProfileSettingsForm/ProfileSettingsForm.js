@@ -105,7 +105,6 @@ class ProfileSettingsFormComponent extends Component {
           // TODO:change validation message
           const phoneRequired = validators.required(phoneRequiredMessage);
           const emailRequired = validators.required(phoneRequiredMessage);
-          const wechatRequired = validators.required(phoneRequiredMessage);
 
           // Bio
           const bioLabel = intl.formatMessage({
@@ -122,10 +121,7 @@ class ProfileSettingsFormComponent extends Component {
                                     {key:"college_selection", label:"Select colleges"}, 
                                     {key:"test_prep", label:"Prepare tests"}];
 
-          // Travel options
-          const travel_options = [{key:"me_to_customer", label:"I travel to customers"}, 
-                                  {key:"customer_to_me", label:"Customers travel to me"}, 
-                                  {key:"remote", label:"Remote"}];
+
 
           const uploadingOverlay =
             uploadInProgress || this.state.uploadDelay ? (
@@ -359,20 +355,49 @@ class ProfileSettingsFormComponent extends Component {
                   />
                 </div>
               </div>
+              {/* Add business name, TODO: change label and placeholder */}
+              <div className={css.sectionContainer}>
+                <h3 className={css.sectionTitle}>
+                  {/* <FormattedMessage id="ProfileSettingsForm.phoneNumber" /> */}
+                  Your business info.
+                </h3>
+                <div className={css.nameContainer}>
+                  <FieldTextInput
+                    className={css.phoneLabel}
+                    type="text"
+                    id="business_name"
+                    name="business_name"
+                    label={"Business name"}
+                    placeholder={"e.g. DZ Marketplace"}
+                  />
+                </div>
+                <div className={css.nameContainer}>
+                  <FieldPhoneNumberInput
+                    className={css.phoneLabel}
+                    type="text"
+                    id="year_founded"
+                    name="year_founded"
+                    label={"Year founded"}
+                    placeholder={"e.g. 2016"}
+                  />
+                </div>
+                <div className={css.sectionContainer}>
+                  <FieldTextInput
+                    className={css.lastSection}
+                    type="textarea"
+                    id="business_address"
+                    name="business_address"
+                    label={"Business address(optional)"}
+                    placeholder={"e.g. street address, city, country, zipcode"}
+                  />
+                </div>
+              </div>
               <div className={css.sectionContainer}>
                 <h3 className={css.sectionTitle}>
                   <FormattedMessage id="ProfileSettingsForm.servicesOffered" />
                 </h3>
                 <FieldCheckboxGroup className={css.features} id="services" name="servicesOffered" options={services_options} />
               </div>
-
-              <div className={css.sectionContainer}>
-                <h3 className={css.sectionTitle}>
-                  <FormattedMessage id="ProfileSettingsForm.travelOption" />
-                </h3>
-                <FieldCheckboxGroup className={css.features} id="travel_options" name="travelOptions" options={travel_options} />
-              </div>
-
               <div className={classNames(css.sectionContainer, css.lastSection)}>
                 <h3 className={css.sectionTitle}>
                   <FormattedMessage id="ProfileSettingsForm.bioHeading" />

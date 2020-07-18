@@ -46,14 +46,16 @@ const EditListingCommonAttributesPanel = props => {
       <h1 className={css.title}>{panelTitle}</h1>
       <EditListingCommonAttributesForm
         className={css.form}
-        initialValues={{ title, description, edu_service_detail:publicData.edu_service_detail,target_client: publicData.target_client, education_application_category: publicData.education_application_category, include_provider_profile: publicData.include_provider_profile,language:publicData.language }}
+        initialValues={{ title, description, edu_service_detail:publicData.edu_service_detail,target_client: publicData.target_client,
+           education_application_category: publicData.education_application_category, 
+           include_provider_profile: publicData.include_provider_profile,language:publicData.language,travelOptions:publicData.travelOptions }}
         saveActionMsg={submitButtonText}
         onSubmit={values => {
-          const { title, description, edu_service_detail, target_client, education_application_category, include_provider_profile,language } = values;
+          const { title, description, edu_service_detail, target_client, education_application_category, include_provider_profile,language,travelOptions } = values;
           const updateValues = {
             title: title.trim(),
             description,
-            publicData: { education_application_category, include_provider_profile ,edu_service_detail, target_client,language},
+            publicData: { education_application_category, include_provider_profile ,edu_service_detail, target_client,language,travelOptions},
           };
 
           onSubmit(updateValues);
