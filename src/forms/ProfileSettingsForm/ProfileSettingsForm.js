@@ -118,6 +118,11 @@ class ProfileSettingsFormComponent extends Component {
                                     {key:"college_selection", label:"Select colleges"}, 
                                     {key:"test_prep", label:"Prepare tests"}];
 
+          // Travel options
+          const travel_options = [{key:"me_to_customer", label:"I travel to customers"}, 
+                                  {key:"customer_to_me", label:"Customers travel to me"}, 
+                                  {key:"remote", label:"Remote"}];
+
           const uploadingOverlay =
             uploadInProgress || this.state.uploadDelay ? (
               <div className={css.uploadingImageOverlay}>
@@ -203,6 +208,7 @@ class ProfileSettingsFormComponent extends Component {
               className={classes}
               onSubmit={e => {
                 this.submittedValues = values;
+                console.log(values);
                 handleSubmit(e);
               }}
             >
@@ -320,7 +326,14 @@ class ProfileSettingsFormComponent extends Component {
                 <h3 className={css.sectionTitle}>
                   <FormattedMessage id="ProfileSettingsForm.servicesOffered" />
                 </h3>
-                <FieldCheckboxGroup className={css.features} id="services" name="Which services can you offer?" options={services_options} />
+                <FieldCheckboxGroup className={css.features} id="services" name="servicesOffered" options={services_options} />
+              </div>
+
+              <div className={css.sectionContainer}>
+                <h3 className={css.sectionTitle}>
+                  <FormattedMessage id="ProfileSettingsForm.travelOption" />
+                </h3>
+                <FieldCheckboxGroup className={css.features} id="travel_options" name="travelOptions" options={travel_options} />
               </div>
 
               <div className={classNames(css.sectionContainer, css.lastSection)}>

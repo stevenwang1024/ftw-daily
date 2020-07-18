@@ -46,8 +46,7 @@ export class ProfileSettingsPageComponent extends Component {
 
     // TODO: add more attributes to this as we add more fields in ProfileSettingForm
     const handleSubmit = values => {
-      const { firstName, lastName, phoneNumber, servicesOffered, bio: rawBio } = values;
-
+      const { firstName, lastName, phoneNumber, servicesOffered, travelOptions, bio: rawBio } = values;
       // Ensure that the optional bio is a string
       const bio = rawBio || '';
       
@@ -57,12 +56,14 @@ export class ProfileSettingsPageComponent extends Component {
         lastName: lastName.trim(),
         bio,
         publicData: {
-          servicesOffered: servicesOffered
+          servicesOffered: servicesOffered,
+          travelOptions: travelOptions
         },
         protectedData: {
           phoneNumber: phoneNumber 
         }
       };
+      // console.log(profile);
       const uploadedImage = this.props.image;
 
       // Update profileImage only if file system has been accessed
@@ -79,6 +80,7 @@ export class ProfileSettingsPageComponent extends Component {
     const { firstName, lastName, bio } = user.attributes.profile;
     const phoneNumber = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.phoneNumber); 
     const servicesOffered = (user.attributes.profile.publicData && user.attributes.profile.publicData.servicesOffered); 
+    const travelOptions = (user.attributes.profile.publicData && user.attributes.profile.publicData.travelOptions); 
     const profileImageId = user.profileImage ? user.profileImage.id : null;
     const profileImage = image || { imageId: profileImageId };
 
@@ -87,7 +89,7 @@ export class ProfileSettingsPageComponent extends Component {
         className={css.form}
         currentUser={currentUser}
         // TODO: make sure attribute appears here
-        initialValues={{ firstName, lastName, phoneNumber, servicesOffered, bio, profileImage: user.profileImage }}
+        initialValues={{ firstName, lastName, phoneNumber, servicesOffered, travelOptions, bio, profileImage: user.profileImage }}
         profileImage={profileImage}
         onImageUpload={e => onImageUploadHandler(e, onImageUpload)}
         uploadInProgress={uploadInProgress}
