@@ -22,9 +22,9 @@ import EditListingWizardTab, {
   AVAILABILITY,
   DESCRIPTION,
   COMMON_ATTR,
-  FEATURES,
-  POLICY,
-  LOCATION,
+  // FEATURES,
+  // POLICY,
+  // LOCATION,
   PRICING,
   PHOTOS,
 } from './EditListingWizardTab';
@@ -40,9 +40,9 @@ const availabilityMaybe = config.enableAvailability ? [AVAILABILITY] : [];
 export const TABS = [
   DESCRIPTION,
   COMMON_ATTR,
-  FEATURES,
-  POLICY,
-  LOCATION,
+  // FEATURES,
+  // POLICY,
+  // LOCATION,
   PRICING,
   ...availabilityMaybe,
   PHOTOS,
@@ -60,12 +60,12 @@ const tabLabel = (intl, tab) => {
     key = 'EditListingWizard.tabLabelDescription';
   } else if (tab === COMMON_ATTR) {
     key = 'EditListingWizard.tabLabelCommonAttributes';
-  } else if (tab === FEATURES) {
-    key = 'EditListingWizard.tabLabelFeatures';
-  } else if (tab === POLICY) {
-    key = 'EditListingWizard.tabLabelPolicy';
-  } else if (tab === LOCATION) {
-    key = 'EditListingWizard.tabLabelLocation';
+  // } else if (tab === FEATURES) {
+  //   key = 'EditListingWizard.tabLabelFeatures';
+  // } else if (tab === POLICY) {
+  //   key = 'EditListingWizard.tabLabelPolicy';
+  // } else if (tab === LOCATION) {
+  //   key = 'EditListingWizard.tabLabelLocation';
   } else if (tab === PRICING) {
     key = 'EditListingWizard.tabLabelPricing';
   } else if (tab === AVAILABILITY) {
@@ -102,12 +102,12 @@ const tabCompleted = (tab, listing) => {
     case COMMON_ATTR:
       // TODO: update this value when we finish define attributes
       return true;
-    case FEATURES:
-      return !!(publicData && publicData.amenities);
-    case POLICY:
-      return !!(publicData && typeof publicData.rules !== 'undefined');
-    case LOCATION:
-      return !!(geolocation && publicData && publicData.location && publicData.location.address);
+    // case FEATURES:
+    //   return !!(publicData && publicData.amenities);
+    // case POLICY:
+    //   return !!(publicData && typeof publicData.rules !== 'undefined');
+    // case LOCATION:
+    //   return !!(geolocation && publicData && publicData.location && publicData.location.address);
     case PRICING:
       return !!price;
     case AVAILABILITY:
