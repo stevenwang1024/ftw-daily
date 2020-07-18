@@ -46,7 +46,7 @@ export class ProfileSettingsPageComponent extends Component {
 
     // TODO: add more attributes to this as we add more fields in ProfileSettingForm
     const handleSubmit = values => {
-      const { firstName, lastName, phoneNumber, servicesOffered, travelOptions, bio: rawBio } = values;
+      const { firstName, lastName, phoneNumber, email, wechat, servicesOffered, travelOptions, bio: rawBio } = values;
       // Ensure that the optional bio is a string
       const bio = rawBio || '';
       
@@ -60,7 +60,9 @@ export class ProfileSettingsPageComponent extends Component {
           travelOptions: travelOptions
         },
         protectedData: {
-          phoneNumber: phoneNumber 
+          phoneNumber: phoneNumber,
+          email:email,
+          wechat:wechat
         }
       };
       // console.log(profile);
@@ -79,6 +81,8 @@ export class ProfileSettingsPageComponent extends Component {
     // TODO: make sure attributes are loaded here from current user
     const { firstName, lastName, bio } = user.attributes.profile;
     const phoneNumber = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.phoneNumber); 
+    const email = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.email); 
+    const wechat = (user.attributes.profile.protectedData && user.attributes.profile.protectedData.wechat); 
     const servicesOffered = (user.attributes.profile.publicData && user.attributes.profile.publicData.servicesOffered); 
     const travelOptions = (user.attributes.profile.publicData && user.attributes.profile.publicData.travelOptions); 
     const profileImageId = user.profileImage ? user.profileImage.id : null;
@@ -89,7 +93,7 @@ export class ProfileSettingsPageComponent extends Component {
         className={css.form}
         currentUser={currentUser}
         // TODO: make sure attribute appears here
-        initialValues={{ firstName, lastName, phoneNumber, servicesOffered, travelOptions, bio, profileImage: user.profileImage }}
+        initialValues={{ firstName, lastName, phoneNumber,email, wechat, servicesOffered, travelOptions, bio, profileImage: user.profileImage }}
         profileImage={profileImage}
         onImageUpload={e => onImageUploadHandler(e, onImageUpload)}
         uploadInProgress={uploadInProgress}

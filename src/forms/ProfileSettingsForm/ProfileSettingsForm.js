@@ -101,7 +101,11 @@ class ProfileSettingsFormComponent extends Component {
           const phoneRequiredMessage = intl.formatMessage({
             id: 'ProfileSettingsForm.phoneRequired',
           });
+
+          // TODO:change validation message
           const phoneRequired = validators.required(phoneRequiredMessage);
+          const emailRequired = validators.required(phoneRequiredMessage);
+          const wechatRequired = validators.required(phoneRequiredMessage);
 
           // Bio
           const bioLabel = intl.formatMessage({
@@ -319,6 +323,39 @@ class ProfileSettingsFormComponent extends Component {
                     label={phoneLabel}
                     placeholder={phonePlaceholder}
                     validate={phoneRequired}
+                  />
+                </div>
+              </div>
+              {/* Add email address, TODO: change label and placeholder */}
+              <div className={css.sectionContainer}>
+                <h3 className={css.sectionTitle}>
+                  <FormattedMessage id="ProfileSettingsForm.phoneNumber" />
+                </h3>
+                <div className={css.nameContainer}>
+                  <FieldTextInput
+                    className={css.phoneLabel}
+                    type="text"
+                    id="email"
+                    name="email"
+                    label={"Email address"}
+                    placeholder={"jeniffer@dzmarketplace.com"}
+                    validate={emailRequired}
+                  />
+                </div>
+              </div>
+              {/* Add weChat, TODO: change label and placeholder */}
+              <div className={css.sectionContainer}>
+                <h3 className={css.sectionTitle}>
+                  <FormattedMessage id="ProfileSettingsForm.phoneNumber" />
+                </h3>
+                <div className={css.nameContainer}>
+                  <FieldTextInput
+                    className={css.phoneLabel}
+                    type="text"
+                    id="wechat"
+                    name="wechat"
+                    label={"Wechat account"}
+                    placeholder={"wechat number"}
                   />
                 </div>
               </div>
