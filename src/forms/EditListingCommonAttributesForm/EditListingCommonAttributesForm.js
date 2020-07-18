@@ -181,10 +181,10 @@ const EditListingCommonAttributesFormComponent = props => (
           
           <FieldSelect id="language" name="language" label="Choose a language:" validate={languageRequired}>
             <option value="">Select the language you will teach</option>
-            <option value="english">English</option>
-            <option value="maderin">Manderin</option>
-            <option value="spanish">Spanish</option>
-            <option value="others">Other</option>
+            <option value="English">English</option>
+            <option value="Mandarin">Manderin</option>
+            <option value="Spanish">Spanish</option>
+            <option value="Other">Other</option>
             {/* TODO:add a text box for other */}
           </FieldSelect>
 

@@ -143,6 +143,54 @@ export const filters = [
       ],
     },
   },
+  {
+    id: "education_category",
+    label: "Education Service Type",
+    type: "SelectSingleFilter",
+    group: "primary",
+    queryParamNames: ['pub_education_category'],
+    config: {
+      options: [
+        {key: "college_admission", label: "Application consulting"},
+        {key: "tutoring", label: "Tutoring"},
+        {key: "language_class", label: "Language Class"},
+        {key: "holiday_camp", label: "Summer/Winter Camp"},
+        {key: "customization", label: "Customized Service"},
+        {key: "coaching", label: "Coaching"},
+      ]
+    }
+  },
+  {
+    id: "education_application_category",
+    label: "Application Type",
+    type: "SelectSingleFilter",
+    group: "secondary",
+    queryParamNames: ['pub_education_application_category'],
+    config: {
+      options: [
+        {key: "college", label: "College"},
+        {key: "grad_school", label: "Grad School"},
+        {key: "mba", label: "MBA"},
+        {key: "high_school", label: "High School"},
+        {key: "elementary_middle", label: "Elementary/Middle School"},
+      ]
+    }
+  },
+  {
+    id: "language",
+    label: "Language",
+    type: "SelectSingleFilter",
+    group: "secondary",
+    queryParamNames: ['pub_language'],
+    config: {
+      options: [
+        {key: "Mandarin", label: "Mandarin"},
+        {key: "English", label: "English"},
+        {key: "Spanish", label: "Spanish"},
+        {key: "Other", label: "Other"},
+      ]
+    }
+  },
 ];
 
 export const sortConfig = {
