@@ -6,7 +6,7 @@ import { intlShape, injectIntl, FormattedMessage } from '../../util/reactIntl';
 import classNames from 'classnames';
 import { propTypes } from '../../util/types';
 import { maxLength, required, composeValidators, requiredBoolean } from '../../util/validators';
-import { Form, Button, FieldTextInput, FieldRadioButton, FieldBoolean } from '../../components';
+import { Form, Button, FieldTextInput, FieldRadioButton, FieldBoolean,FieldSelect } from '../../components';
 // import CustomCategorySelectFieldMaybe from './CustomCategorySelectFieldMaybe';
 
 import css from './EditListingCommonAttributesForm.css';
@@ -112,7 +112,8 @@ const EditListingCommonAttributesFormComponent = props => (
 
        // Boolean to include provider profile
        const profileBoolRequired = requiredBoolean('This field is required');
-
+       //fieldselect to choose language provider teaches
+       const languageRequired = required('This field is required');
 
       return (
         <Form className={classes} onSubmit={handleSubmit}>
@@ -131,6 +132,16 @@ const EditListingCommonAttributesFormComponent = props => (
             autoFocus
           />
 
+          {/* TODO: change label and placeholder and descriptionRequiredMessage  */}
+          <FieldTextInput
+            id="target_client"
+            name="target_client"
+            className={css.description}
+            type="textarea"
+            label={"Describe the suitable client for this service"}
+            placeholder={"What is the suitable age group? What level is your class? Any prelimitary knowledge required?"}
+            validate={composeValidators(required(descriptionRequiredMessage))}
+          />
           
           <FieldTextInput
             id="description"
@@ -139,6 +150,16 @@ const EditListingCommonAttributesFormComponent = props => (
             type="textarea"
             label={descriptionMessage}
             placeholder={descriptionPlaceholderMessage}
+            validate={composeValidators(required(descriptionRequiredMessage))}
+          />
+          {/* TODO: change label and placeholder and descriptionRequiredMessage  */}
+          <FieldTextInput
+            id="edu_service_detail"
+            name="edu_service_detail"
+            className={css.description}
+            type="textarea"
+            label={"Describe the detailed process of service"}
+            placeholder={"What is the service process, time lines and detailed arrangements"}
             validate={composeValidators(required(descriptionRequiredMessage))}
           />
           
@@ -158,6 +179,15 @@ const EditListingCommonAttributesFormComponent = props => (
             validate={profileBoolRequired}
           />
           
+          <FieldSelect id="language" name="language" label="Choose a language:" validate={languageRequired}>
+            <option value="">Select the language you will teach</option>
+            <option value="english">English</option>
+            <option value="maderin">Manderin</option>
+            <option value="spanish">Spanish</option>
+            <option value="others">Other</option>
+            {/* TODO:add a text box for other */}
+          </FieldSelect>
+
           <Button
             className={css.submitButton}
             type="submit"
