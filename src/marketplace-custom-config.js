@@ -73,76 +73,76 @@ export const filters = [
     // You can turn on/off ordering by distance from config.js file.
     config: {},
   },
-  {
-    id: 'category',
-    label: 'Category',
-    type: 'SelectSingleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_category'],
-    config: {
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for the UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        { key: 'smoke', label: 'Smoke' },
-        { key: 'electric', label: 'Electric' },
-        { key: 'wood', label: 'Wood' },
-        { key: 'other', label: 'Other' },
-      ],
-    },
-  },
-  {
-    id: 'amenities',
-    label: 'Amenities',
-    type: 'SelectMultipleFilter',
-    group: 'secondary',
-    queryParamNames: ['pub_amenities'],
-    config: {
-      // Optional modes: 'has_all', 'has_any'
-      // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
-      searchMode: 'has_all',
+  // {
+  //   id: 'category',
+  //   label: 'Category',
+  //   type: 'SelectSingleFilter',
+  //   group: 'secondary',
+  //   queryParamNames: ['pub_category'],
+  //   config: {
+  //     // "key" is the option you see in Flex Console.
+  //     // "label" is set here for the UI only.
+  //     // Note: label is not added through the translation files
+  //     // to make filter customizations a bit easier.
+  //     options: [
+  //       { key: 'smoke', label: 'Smoke' },
+  //       { key: 'electric', label: 'Electric' },
+  //       { key: 'wood', label: 'Wood' },
+  //       { key: 'other', label: 'Other' },
+  //     ],
+  //   },
+  // },
+  // {
+  //   id: 'amenities',
+  //   label: 'Amenities',
+  //   type: 'SelectMultipleFilter',
+  //   group: 'secondary',
+  //   queryParamNames: ['pub_amenities'],
+  //   config: {
+  //     // Optional modes: 'has_all', 'has_any'
+  //     // https://www.sharetribe.com/api-reference/marketplace.html#extended-data-filtering
+  //     searchMode: 'has_all',
 
-      // "key" is the option you see in Flex Console.
-      // "label" is set here for this web app's UI only.
-      // Note: label is not added through the translation files
-      // to make filter customizations a bit easier.
-      options: [
-        {
-          key: 'towels',
-          label: 'Towels',
-        },
-        {
-          key: 'bathroom',
-          label: 'Bathroom',
-        },
-        {
-          key: 'swimming_pool',
-          label: 'Swimming pool',
-        },
-        {
-          key: 'own_drinks',
-          label: 'Own drinks allowed',
-        },
-        {
-          key: 'jacuzzi',
-          label: 'Jacuzzi',
-        },
-        {
-          key: 'audiovisual_entertainment',
-          label: 'Audiovisual entertainment',
-        },
-        {
-          key: 'barbeque',
-          label: 'Barbeque',
-        },
-        {
-          key: 'own_food_allowed',
-          label: 'Own food allowed',
-        },
-      ],
-    },
-  },
+  //     // "key" is the option you see in Flex Console.
+  //     // "label" is set here for this web app's UI only.
+  //     // Note: label is not added through the translation files
+  //     // to make filter customizations a bit easier.
+  //     options: [
+  //       {
+  //         key: 'towels',
+  //         label: 'Towels',
+  //       },
+  //       {
+  //         key: 'bathroom',
+  //         label: 'Bathroom',
+  //       },
+  //       {
+  //         key: 'swimming_pool',
+  //         label: 'Swimming pool',
+  //       },
+  //       {
+  //         key: 'own_drinks',
+  //         label: 'Own drinks allowed',
+  //       },
+  //       {
+  //         key: 'jacuzzi',
+  //         label: 'Jacuzzi',
+  //       },
+  //       {
+  //         key: 'audiovisual_entertainment',
+  //         label: 'Audiovisual entertainment',
+  //       },
+  //       {
+  //         key: 'barbeque',
+  //         label: 'Barbeque',
+  //       },
+  //       {
+  //         key: 'own_food_allowed',
+  //         label: 'Own food allowed',
+  //       },
+  //     ],
+  //   },
+  // },
   {
     id: "education_category",
     label: "Education Service Type",
@@ -164,7 +164,7 @@ export const filters = [
     id: "education_application_category",
     label: "Application Type",
     type: "SelectSingleFilter",
-    group: "secondary",
+    group: "primary",
     queryParamNames: ['pub_education_application_category'],
     config: {
       options: [
@@ -180,7 +180,7 @@ export const filters = [
     id: "language",
     label: "Language",
     type: "SelectSingleFilter",
-    group: "secondary",
+    group: "primary",
     queryParamNames: ['pub_language'],
     config: {
       options: [
