@@ -52,7 +52,8 @@ import SectionImages from './SectionImages';
 import SectionAvatar from './SectionAvatar';
 import SectionHeading from './SectionHeading';
 import SectionDescriptionMaybe from './SectionDescriptionMaybe';
-import SectionFeaturesMaybe from './SectionFeaturesMaybe';
+// import SectionFeaturesMaybe from './SectionFeaturesMaybe';
+import SectionCommonAttributesMaybe from './SectionCommonAttributesMaybe';
 import SectionReviews from './SectionReviews';
 import SectionHostMaybe from './SectionHostMaybe';
 import SectionRulesMaybe from './SectionRulesMaybe';
@@ -379,15 +380,16 @@ export class ListingPageComponent extends Component {
       </NamedLink>
     );
 
-    const amenityOptions = findOptionsForSelectFilter('amenities', filterConfig);
-    const categoryOptions = findOptionsForSelectFilter('category', filterConfig);
-    const category =
-      publicData && publicData.category ? (
-        <span>
-          {categoryLabel(categoryOptions, publicData.category)}
-          <span className={css.separator}>•</span>
-        </span>
-      ) : null;
+    // const amenityOptions = findOptionsForSelectFilter('amenities', filterConfig);
+    const eduApplicationOptions = findOptionsForSelectFilter('education_application_category', filterConfig);
+    // const categoryOptions = findOptionsForSelectFilter('category', filterConfig);
+    // const category =
+    //   publicData && publicData.category ? (
+    //     <span>
+    //       {categoryLabel(categoryOptions, publicData.category)}
+    //       <span className={css.separator}>•</span>
+    //     </span>
+    //   ) : null;
 
     return (
       <Page
@@ -432,14 +434,15 @@ export class ListingPageComponent extends Component {
                     priceTitle={priceTitle}
                     formattedPrice={formattedPrice}
                     richTitle={richTitle}
-                    category={category}
+                    // category={category}
                     hostLink={hostLink}
                     showContactUser={showContactUser}
                     onContactUser={this.onContactUser}
                   />
                   <SectionDescriptionMaybe description={description} />
-                  <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} />
-                  <SectionRulesMaybe publicData={publicData} />
+                  {/* <SectionFeaturesMaybe options={amenityOptions} publicData={publicData} /> */}
+                  {/* <SectionRulesMaybe publicData={publicData} /> */}
+                  <SectionCommonAttributesMaybe options={eduApplicationOptions} publicData={publicData}/>
                   <SectionMapMaybe
                     geolocation={geolocation}
                     publicData={publicData}

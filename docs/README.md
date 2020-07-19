@@ -56,7 +56,7 @@ After cloning the repo, your project should look like this:
     ├── config.js
     ├── examples.js
     ├── index.js
-    ├── marketplace-custom-config.js
+    ├── marketpce-custom-configla.js
     ├── marketplace.css
     ├── marketplaceFonts.css
     ├── marketplaceIndex.css
