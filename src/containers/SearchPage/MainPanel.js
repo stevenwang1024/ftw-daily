@@ -162,7 +162,8 @@ class MainPanel extends Component {
       filterConfig,
       sortConfig,
     } = this.props;
-
+    
+    // Need some logic here to make sure the righ primary and secondary filters are displaying.
     const primaryFilters = filterConfig.filter(f => f.group === 'primary');
     const secondaryFilters = filterConfig.filter(f => f.group !== 'primary');
     const hasSecondaryFilters = !!(secondaryFilters && secondaryFilters.length > 0);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form as FinalForm, Field } from 'react-final-form';
 import { intlShape, injectIntl } from '../../util/reactIntl';
 import classNames from 'classnames';
-import { Form, LocationAutocompleteInput } from '../../components';
+import { Form, LocationAutocompleteInput, FieldAutocompleteInput } from '../../components';
 
 import css from './TopbarSearchForm.css';
 
@@ -15,7 +15,7 @@ class TopbarSearchFormComponent extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.searchInput = React.createRef();
   }
-
+  // XXX: DON"T DELETE THIS CODE
   // onChange(location) {
   //   if (location.selectedPlace) {
   //     // Note that we use `onSubmit` instead of the conventional
@@ -54,7 +54,15 @@ class TopbarSearchFormComponent extends Component {
           const classes = classNames(rootClassName, className);
           return (
             <Form className={classes} onSubmit={handleSubmit}>
-              <Field
+              <FieldAutocompleteInput 
+                name="keywords"
+                // items=
+                placeholder={intl.formatMessage({
+                  id: 'TopbarSearchForm.placeholder',
+                })}  
+              />
+              
+              {/* <Field
                 name="keywords"
                 render={({ input, meta }) => {
                   return (
@@ -71,11 +79,11 @@ class TopbarSearchFormComponent extends Component {
                       placeholder={intl.formatMessage({
                         id: 'TopbarSearchForm.placeholder',
                       })}
-                      autoComplete="off"
+                      autoComplete="on"
                     />
                   );
                 }}
-              />
+              /> */}
             </Form>
           );
         }}

@@ -84,6 +84,16 @@ export const autocompletePlaceSelected = message => value => {
   return selectedPlaceIsValid ? VALID : message;
 };
 
+// TODO: code it up and make it a validator at search bar
+export const autocompleteCategorySelected = message => value => {
+  const selectedValueIsValidCategory =
+    value &&
+    value.selectedPlace &&
+    value.selectedPlace.address &&
+    value.selectedPlace.origin instanceof LatLng;
+  return selectedPlaceIsValid ? VALID : message;
+};
+
 export const bookingDateRequired = inValidDateMessage => value => {
   const dateIsValid = value && value.date instanceof Date;
   return !dateIsValid ? inValidDateMessage : VALID;

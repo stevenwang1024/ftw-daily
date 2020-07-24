@@ -21,6 +21,7 @@
     "decimal.js": "10.2.0",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
+    "downshift": "^5.4.7",
     "express": "^4.16.4",
     "express-enforces-ssl": "^1.1.0",
     "express-sitemap": "^1.8.0",
@@ -32,6 +33,7 @@
     "intl-pluralrules": "^1.0.3",
     "lodash": "^4.17.14",
     "mapbox-gl-multitouch": "^1.0.3",
+    "match-sorter": "^4.2.0",
     "moment": "^2.22.2",
     "object.entries": "^1.1.1",
     "object.values": "^1.1.1",
@@ -58,6 +60,7 @@
     "sharetribe-scripts": "3.1.1",
     "smoothscroll-polyfill": "^0.4.0",
     "source-map-support": "^0.5.9",
+    "styled-components": "^5.1.1",
     "url": "^0.11.0",
     "yarn": "^1.22.4"
   },

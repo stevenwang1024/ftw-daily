@@ -126,24 +126,25 @@ export class SearchPageComponent extends Component {
       latlng: ['origin'],
       latlngBounds: ['bounds'],
     });
-
+    
     // urlQueryParams doesn't contain page specific url params
     // like mapSearch, page or origin (origin depends on config.sortSearchByDistance)
+    // they are key value pairs, e.g. {"pub_education_category": "college_admission"}
     const urlQueryParams = pickSearchParamsOnly(searchInURL, filterConfig, sortConfig);
-
+    
     // Page transition might initially use values from previous search
     const urlQueryString = stringify(urlQueryParams);
     const paramsQueryString = stringify(
       pickSearchParamsOnly(searchParams, filterConfig, sortConfig)
     );
+    console.log(paramsQueryString);
     const searchParamsAreInSync = urlQueryString === paramsQueryString;
 
     const validQueryParams = validURLParamsForExtendedData(searchInURL, filterConfig);
 
     const isWindowDefined = typeof window !== 'undefined';
     const isMobileLayout = isWindowDefined && window.innerWidth < MODAL_BREAKPOINT;
-    const shouldShowSearchMap =
-      !isMobileLayout || (isMobileLayout && this.state.isSearchMapOpenOnMobile);
+    const shouldShowSearchMap = false; // !isMobileLayout || (isMobileLayout && this.state.isSearchMapOpenOnMobile);
 
     const onMapIconClick = () => {
       this.useLocationSearchBounds = true;
