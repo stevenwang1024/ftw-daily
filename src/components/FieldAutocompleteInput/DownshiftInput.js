@@ -27,7 +27,8 @@ const DownshiftInput = ({ input, meta, placeholder, items, ...rest }) => (
         maxRanking: matchSorter.rankings.STARTS_WITH
       })
       return (
-        <div className="downshift" style={{ position: 'relative' }}>
+        <div className="downshift" style={{ position: 'relative', marginTop: 20 }}>
+        {/* <div className="downshift" > */}
           <input
             {...getInputProps({
               name: input.name,

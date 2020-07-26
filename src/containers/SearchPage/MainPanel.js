@@ -163,7 +163,23 @@ class MainPanel extends Component {
       sortConfig,
     } = this.props;
     
-    // Need some logic here to make sure the righ primary and secondary filters are displaying.
+    // TODO: Need some logic here to make sure the righ primary and secondary filters are displaying.
+    const toplevelFilterName =  'education_category';
+    const eduSubCategory = ["college_admission","tutoring", "holiday_camp","language_class","coaching","customization"];
+    const filterHiarrachy = {
+      "education_category": eduSubCategory,
+      "local_help": ["post_portem", "nanny"],
+      "language_class": "language",
+      "college_admission":"education_application_category"
+    };
+
+    const toplevelFilter = filterConfig.filter(f => f.id === toplevelFilterName);
+    console.log(this.state.currentQueryParams);
+    const selectedTopLevelCategory = this.state.currentQueryParams? this.state.currentQueryParams["pub_"+toplevelFilterName] : '';
+    
+    const selectedSubTopLevelCategory = selectedTopLevelCategory in filterHiarrachy ? filterHiarrachy[selectedTopLevelCategory] : '';
+    const subToplevelFilter = filterConfig.filter(f => f.id === selectedSubTopLevelCategory);
+
     const primaryFilters = filterConfig.filter(f => f.group === 'primary');
     const secondaryFilters = filterConfig.filter(f => f.group !== 'primary');
     const hasSecondaryFilters = !!(secondaryFilters && secondaryFilters.length > 0);
@@ -232,7 +248,7 @@ class MainPanel extends Component {
           searchListingsError={searchListingsError}
           {...propsForSecondaryFiltersToggle}
         >
-          {primaryFilters.map(config => {
+          {toplevelFilter.map(config => {
             return (
               <FilterComponent
                 key={`SearchFiltersPrimary.${config.id}`}
@@ -246,6 +262,21 @@ class MainPanel extends Component {
               />
             );
           })}
+          {subToplevelFilter.map(config => {
+            return (
+              <FilterComponent
+                key={`SearchFiltersPrimary.${config.id}`}
+                idPrefix="SearchFiltersPrimary"
+                filterConfig={config}
+                urlQueryParams={urlQueryParams}
+                initialValues={this.initialValues}
+                getHandleChangedValueFn={this.getHandleChangedValueFn}
+                showAsPopup
+                contentPlacementOffset={FILTER_DROPDOWN_OFFSET}
+              />
+          );
+          })}
+          
         </SearchFiltersPrimary>
         <SearchFiltersMobile
           className={css.searchFiltersMobile}

@@ -2,6 +2,7 @@ import React from 'react'
 // import Styles from './Styles'
 import { Field } from 'react-final-form'
 import DownshiftInput from './DownshiftInput'
+import {autocompleteCategorySelected} from '../../util/validators';
 
 
 const fruit = [
@@ -57,10 +58,12 @@ const FieldAutoCompleteInput = props => {
   return (
     <div>
         <Field
+            className={className}
             name={name}
             items={fruit} //{items}
             component={DownshiftInput}
             placeholder={placeholder}
+            // validate={autocompleteCategorySelected("have to be same")}
         />
         {/* <Error name={name} /> */}
     </div>);

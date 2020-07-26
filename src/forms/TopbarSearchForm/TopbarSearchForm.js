@@ -55,6 +55,7 @@ class TopbarSearchFormComponent extends Component {
           return (
             <Form className={classes} onSubmit={handleSubmit}>
               <FieldAutocompleteInput 
+                className={css.desktopInputRoot}
                 name="keywords"
                 // items=
                 placeholder={intl.formatMessage({
@@ -79,7 +80,7 @@ class TopbarSearchFormComponent extends Component {
                       placeholder={intl.formatMessage({
                         id: 'TopbarSearchForm.placeholder',
                       })}
-                      autoComplete="on"
+                      autoComplete="off"
                     />
                   );
                 }}
