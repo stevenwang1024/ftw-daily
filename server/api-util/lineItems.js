@@ -3,6 +3,12 @@ const { types } = require('sharetribe-flex-sdk');
 const { Money } = types;
 
 const unitType = 'line-item/night';
+const unitTypeService = 'line-item/service';
+const unitTypePerson = 'line-item/person';
+const unitTypeDay = 'line-item/day';
+const unitTypeWeek = 'line-item/week';
+const unitTypeHour = 'line-item/hour';
+
 const PROVIDER_COMMISSION_PERCENTAGE = -10;
 
 /** Returns collection of lineItems (max 50)
@@ -45,6 +51,14 @@ exports.transactionLineItems = (listing, bookingData) => {
     quantity: calculateQuantityFromDates(startDate, endDate, unitType),
     includeFor: ['customer', 'provider'],
   };
+
+  const booking_service = {
+    code: 'line-item/service',
+    unitPrice,
+    quantity: null, //calculateQuantityFromDates(startDate, endDate, unitType),
+    includeFor: ['customer', 'provider'],
+  };
+
 
   const providerCommission = {
     code: 'line-item/provider-commission',
